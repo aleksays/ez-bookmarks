@@ -11,6 +11,7 @@ import {
 } from "@tabler/icons";
 import { openModal } from "@mantine/modals";
 import EditGroupModal from "components/modals/EditGroupModal";
+import AddGroupModal from "components/modals/AddGroupModal";
 
 const BookmarksGroupActions = () => (
   <Menu>
@@ -33,7 +34,13 @@ const BookmarksGroupActions = () => (
       >
         Edit group
       </Menu.Item>
-      <Menu.Item icon={<IconFolderPlus size={18} />}>
+      <Menu.Item
+        icon={<IconFolderPlus size={18} />}
+        onClick={() => openModal({
+          title: 'Create a new group',
+          children: <AddGroupModal />,
+        })}
+      >
         Add new group
       </Menu.Item>
       <Menu.Item icon={<IconCirclePlus size={18} />}>

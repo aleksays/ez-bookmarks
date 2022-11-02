@@ -2,9 +2,10 @@ import {
   Tabs,
   Group,
   Paper,
+  ScrollArea,
 } from "@mantine/core";
 import useGroups from "hooks/useGroups";
-import { useLocalStorage, useClickOutside } from "@mantine/hooks";
+import { useLocalStorage } from "@mantine/hooks";
 
 import BookmarksGroup from "./BookmarksGroup";
 import BookmarksGroupActions from "./BookmarksGroupActions";
@@ -13,8 +14,6 @@ function Bookmarks() {
   const { data, isLoading } = useGroups();
   const [activeGroup, setActiveGroup] = useLocalStorage({ key: 'activeGroup', defaultValue: '' });
   const [isEditMode, setEditMode] = useLocalStorage({ key: 'is-edit-bookmarks', defaultValue: false });
-
-  const ref = useClickOutside(() => setEditMode(false));
 
   if (isLoading) {
     return <div>Loading...</div>
@@ -26,7 +25,6 @@ function Bookmarks() {
       onTabChange={setActiveGroup}
       variant="pills"
       keepMounted={false}
-      ref={ref}
     >
       <Group
         component={Paper}
@@ -35,11 +33,13 @@ function Bookmarks() {
         p="sm"
         noWrap
       >
-        <Tabs.List m={0}>
-          {data.map(({ title, id }) => (
-            <Tabs.Tab value={id}>{title}</Tabs.Tab>
-          ))}
-        </Tabs.List>
+        <ScrollArea type="never">
+          <Tabs.List m={0} style={{ flexWrap: 'nowrap' }}>
+            {data.map(({ title, id }) => (
+              <Tabs.Tab value={id}>{title}</Tabs.Tab>
+            ))}
+          </Tabs.List>
+        </ScrollArea>
         <BookmarksGroupActions />
       </Group>
 
