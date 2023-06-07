@@ -19,7 +19,7 @@ const BookmarksGroup = ({
 
   return (
     <Tabs.Panel value={groupId}>
-      <SimpleGrid cols={4}>
+      <SimpleGrid cols={5}>
         {data.map(({ title, url }) => (
           <BookmarksItem
             url={url}
